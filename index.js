@@ -3,7 +3,7 @@ import data from './data/mock.json' assert { type: 'json' };
 
 const app = express();
 
-const PORT = 3002;
+const PORT = 3000;
 
 //Using the public folder at the root (/) of the project
 app.use(express.static('public'));
@@ -45,7 +45,8 @@ app.get('/redirect', (req, res) => {
 app
   .route('/class')
   .get((req, res) => {
-    res.send('Retrieve class info');
+    //res.send('Retrieve class info');
+    throw new Error();
   })
   .post((req, res) => {
     res.send('Create class info');
@@ -103,6 +104,12 @@ app.put('/edit', (req, res) => {
 // DELETE
 app.delete('/delete', (req, res) => {
   res.send('This is a DELETE request at /delete');
+});
+
+// Error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('500 - Something is broken!');
 });
 
 app.listen(PORT, () => {
