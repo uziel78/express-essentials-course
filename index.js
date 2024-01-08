@@ -5,13 +5,57 @@ const app = express();
 
 const PORT = 3000;
 
+//Using the public folder at the root (/) of the project
+app.use(express.static('public'));
+
+//Using the images folder at the route /images
+app.use('/images', express.static('images'));
+
 //GET;
 // app.get('/', (req, res) => {
 //   res.send('This is a GET request at /');
 // });
-app.get('/', (req, res) => {
-  res.json(data);
+// app.get('/', (req, res) => {
+//   res.json(data);
+// });
+
+// GET - download method
+app.get('/download', (req, res) => {
+  res.download('images/mountains_2.jpeg');
 });
+
+// GET - redirect method
+app.get('/redirect', (req, res) => {
+  res.redirect('https://www.google.com');
+});
+
+// Route chaining
+app
+  .route('/class')
+  .get((req, res) => {
+    res.send('Retrieve class info');
+  })
+  .post((req, res) => {
+    res.send('Create class info');
+  })
+  .put((req, res) => {
+    res.send('Edit class info');
+  });
+
+// GET - route chaining
+// app.get('/class', (req, res) => {
+//   res.send('Retrieve class info');
+// });
+
+// POST - route chaining
+// app.post('/class', (req, res) => {
+//   res.send('Create class info');
+// });
+
+// PUT - route chaining
+// app.put('/class', (req, res) => {
+//   res.send('Edit class info');
+// });
 
 // GET with next()
 app.get(
