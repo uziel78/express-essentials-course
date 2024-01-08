@@ -3,7 +3,7 @@ import data from './data/mock.json' assert { type: 'json' };
 
 const app = express();
 
-const PORT = 3000;
+const PORT = 3002;
 
 //Using the public folder at the root (/) of the project
 app.use(express.static('public'));
@@ -11,13 +11,25 @@ app.use(express.static('public'));
 //Using the images folder at the route /images
 app.use('/images', express.static('images'));
 
+// Using express,json and express.urlencoded
+//app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 //GET;
 // app.get('/', (req, res) => {
 //   res.send('This is a GET request at /');
 // });
-// app.get('/', (req, res) => {
-//   res.json(data);
-// });
+app.get('/', (req, res) => {
+  res.json(data);
+});
+
+// POST - using express.json() and express.urlencoded()
+// Header: Content-type application/json in postman.
+// Body: raw and JSON in postman
+app.post('/items', (req, res) => {
+  console.log(req.body);
+  res.send(req.body);
+});
 
 // GET - download method
 app.get('/download', (req, res) => {
