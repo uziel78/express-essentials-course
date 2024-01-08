@@ -15,6 +15,10 @@ app.use('/images', express.static('images'));
 //app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Using cookie-parser middleware
+// const cookieParser = require('cookie-parser');
+// app.use(cookieParser());
+
 //GET;
 // app.get('/', (req, res) => {
 //   res.send('This is a GET request at /');
@@ -111,6 +115,12 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('500 - Something is broken!');
 });
+// const myLogger = function (req, res, next) {
+//   console.log('LOGGED');
+//   next();
+// };
+
+//app.use(myLogger);
 
 app.listen(PORT, () => {
   //console.log(data);
