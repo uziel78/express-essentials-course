@@ -9,8 +9,17 @@ const PORT = 3000;
 // app.get('/', (req, res) => {
 //   res.send('This is a GET request at /');
 // });
-app.get('/', (req, res) => {
-  res.json(data);
+// app.get('/', (req, res) => {
+//   res.json(data);
+// });
+
+// GET with routing parameters
+app.get('/class/:id', (req, res) => {
+  //console.log(req.params);
+  const studentId = Number(req.params.id);
+  // return the student with the id from mock data
+  const student = data.filter((student) => student.id === studentId);
+  res.send(student);
 });
 
 // POST
@@ -30,5 +39,5 @@ app.delete('/delete', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
-  console.log(data);
+  //console.log(data);
 });
