@@ -5,13 +5,25 @@ const app = express();
 
 const PORT = 3000;
 
-// GET
+//GET;
 // app.get('/', (req, res) => {
 //   res.send('This is a GET request at /');
 // });
-// app.get('/', (req, res) => {
-//   res.json(data);
-// });
+app.get('/', (req, res) => {
+  res.json(data);
+});
+
+// GET with next()
+app.get(
+  '/next',
+  (req, res, next) => {
+    console.log('The response will be sendt by the next function...');
+    next();
+  },
+  (req, res) => {
+    res.send('I just set up a route with a second callback');
+  }
+);
 
 // GET with routing parameters
 app.get('/class/:id', (req, res) => {
@@ -38,6 +50,6 @@ app.delete('/delete', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
   //console.log(data);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
